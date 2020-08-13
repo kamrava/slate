@@ -1,32 +1,71 @@
 ////////////////////////////////////////////////////////////////////////////////
-// RTL Styles Variables
+// RTL Styles
+// Author: Mohammad Hossein Rabiee | @mhrabiee
 ////////////////////////////////////////////////////////////////////////////////
 
-$default: auto;
+////////////////////////////////////////////////////////////////////////////////
+// CUSTOM FONT (PERSIAN)
+////////////////////////////////////////////////////////////////////////////////
+@font-face {
+    font-family: 'vazir';
+    src: font-url('Vazir.eot'), font-url('Vazir.woff2') format('woff2'), font-url('Vazir.woff') format('woff'), font-url('Vazir.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'vazir-Code';
+    src: font-url('Vazir-Code.eot'), font-url('Vazir-Code.woff') format('woff'), font-url('Vazir-Code.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+%vazir {
+    font-family: 'vazir' !important;
+}
+
+%vazir-code {
+    font-family: 'vazir-code' !important;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // TABLE OF CONTENTS
 ////////////////////////////////////////////////////////////////////////////////
 
+$right: right;
+$left: left;
+$rtl: rtl;
+$ltr: ltr;
+$direction: right;
+$counter-direction: left;
+$default: auto;
+
+////////////////////////////////////////////////////////////////////////////////
+// TABLE OF CONTENTS
+////////////////////////////////////////////////////////////////////////////////
+table {
+    font-family: 'vazir';
+}
+
 #toc>ul>li>a>span {
-    float: left;
+    float: $left;
 }
 
 .toc-wrapper {
-    transition: right 0.3s ease-in-out !important;
-    left: $default !important;
-    #{right}: 0;
+    transition: $right 0.3s ease-in-out !important;
+    left: auto !important;
+    #{$right}: 0;
 }
 
 .toc-h2 {
-    padding-#{right}: $nav-padding + $nav-indent;
+    padding-#{$right}: $nav-padding + $nav-indent;
 }
 
 #nav-button {
-    #{right}: 0;
-    transition: right 0.3s ease-in-out;
+    #{$right}: 0;
+    transition: $right 0.3s ease-in-out;
     &.open {
-        right: $nav-width
+        $right: $nav-width
     }
 }
 
@@ -34,18 +73,18 @@ $default: auto;
 // PAGE LAYOUT AND CODE SAMPLE BACKGROUND
 ////////////////////////////////////////////////////////////////////////////////
 .page-wrapper {
-    margin-#{left}: $default !important;
-    margin-#{right}: $nav-width;
+    margin-#{$left}: auto !important;
+    margin-#{$right}: $nav-width;
     .dark-box {
-        #{right}: $default;
-        #{left}: 0;
+        #{$right}: auto;
+        #{$left}: 0;
     }
 }
 
 .lang-selector {
-    width: $default !important;
+    width: auto !important;
     a {
-        float: right;
+        float: $right;
     }
 }
 
@@ -65,34 +104,37 @@ $default: auto;
     &>ol,
     &>aside,
     &>dl {
-        margin-#{left}: $examples-width;
-        margin-#{right}: $default !important;
+        margin-#{$left}: $examples-width;
+        margin-#{$right}: $default !important;
     }
     &>ul,
     &>ol {
-        padding-#{right}: $main-padding + 15px;
+        padding-#{$right}: $main-padding + 15px;
     }
     table {
+        direction: rtl;
+        margin-right: auto !important;
+        margin-left: auto !important;
         th,
         td {
-            text-align: right;
+            text-align: $right;
         }
     }
     dd {
-        margin-#{right}: 15px;
+        margin-#{$right}: 15px;
     }
     aside {
         aside:before {
-            padding-#{left}: 0.5em;
+            padding-#{$left}: 0.5em;
         }
         .search-highlight {
-            background: linear-gradient(to top right, #F7E633 0%, #F1D32F 100%);
+            background: linear-gradient(to top $right, #F7E633 0%, #F1D32F 100%);
         }
     }
     pre,
     blockquote {
-        float: left !important;
-        clear: left !important;
+        float: $left !important;
+        clear: $left !important;
     }
 }
 
@@ -107,13 +149,19 @@ h5,
 h6,
 p,
 aside {
-    text-align: right;
-    direction: rtl;
+    @extend %vazir;
+    text-align: $direction;
+    direction: $rtl;
+}
+
+code {
+    @extend %vazir-code;
 }
 
 .toc-wrapper {
-    text-align: right;
-    direction: rtl;
+    @extend %vazir;
+    text-align: $direction;
+    direction: $rtl;
     font-weight: 100 !important;
 }
 
@@ -123,18 +171,18 @@ aside {
 ////////////////////////////////////////////////////////////////////////////////
 @media (max-width: $tablet-width) {
     .toc-wrapper {
-        #{right}: -$nav-width;
+        #{$right}: -$nav-width;
         &.open {
-            #{right}: 0;
+            #{$right}: 0;
         }
     }
     .page-wrapper {
-        margin-#{right}: 0;
+        margin-#{$right}: 0;
     }
 }
 
 @media (max-width: $phone-width) {
     %left-col {
-        margin-#{left}: 0;
+        margin-#{$left}: 0;
     }
 }
